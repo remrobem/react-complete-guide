@@ -5,6 +5,9 @@ import './Person.css';
 // uses function, not class
 // best practice is to use stateless as much as possible
 
+// props.click is func passed from Person component in App.js
+// props.children excutes whatever is before the "normal" 
+// closing of the component - either text or {js}
 const person = (props) => {
     return (
         <div className='Person'>

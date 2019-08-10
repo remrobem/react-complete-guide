@@ -1,5 +1,5 @@
 import React from 'react';
-
+// props changed is function passed from UserInput component
 const userInput = (props) => {
     return (
         <div>
