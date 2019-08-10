@@ -5,7 +5,7 @@ const inputText = (props) => {
     return (
         <div>
             <p>Text Length: {props.textLength}</p>
-            <input
+            <textarea
                 type='text'
                 placeholder='Enter text'
                 onChange={props.changed}
