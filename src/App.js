@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Radium, { StyleRoot } from 'radium';
 import './App.css';
 import Person from './Person/Person';
 import UserInput from './UserInput/UserInput';
@@ -111,11 +112,17 @@ class App extends Component {
   render() {
 
     const style = {
-      backgroundColor: 'white',
+      backgroundColor: 'green',
+      color: 'white',
       font: 'inherit',
       border: '1px solid blue',
       padding: '8px',
-      cursor: 'pointer'
+      cursor: 'pointer',
+      // use Radium to allow use of psudeoselectors
+      ':hover': {
+        backgroundColor: 'lightgreen',
+        color: 'black'
+      }
     };
 
     const userInputStyle = {
@@ -141,7 +148,7 @@ class App extends Component {
       border: '1px solid black',
     };
 
-    const characters = 
+    const characters =
       this.state.text.split('').map((char, index) => {
         return <CharComponent
           char={char}
@@ -150,7 +157,7 @@ class App extends Component {
           key={index}
         />
       }
-    )
+      )
 
     let persons = null;
     if (this.state.showPersons) {
@@ -185,38 +192,57 @@ class App extends Component {
         </div>
 
       );
+      style.backgroundColor = 'red';
+      style[':hover'] = {
+        backgroundColor: 'lightred',
+        color: 'black'
+      }
     }
+    // dynamically assign classes
+    let classes = [];
+
+    if (this.state.persons.length <= 2) {
+      classes.push('red')
+    };
+
+    if (this.state.persons.length <= 1) {
+      classes.push('bold')
+    };
 
     return (
-      <div className="App">
-        <h1>I am a React App</h1>
-        {/* don't use () in OnClick function name */}
-        {/* need to bind to pass data */}
-        <button
-          style={style}
-          // uses a reference to the method (function to execute)
-          onClick={this.togglePersonsHandler}>Toggle Persons0</button>
-        <button
+      // wrap entire app in StyleRoot when @media used via Radium
+      <StyleRoot>
+        <div className="App">
+          <h1>I am a React App</h1>
+          <p className={classes.join(' ')}>This works!</p>
+          {/* don't use () in OnClick function name */}
+          {/* need to bind to pass data */}
+          <button
+            style={style}
+            // uses a reference to the method (function to execute)
+            onClick={this.togglePersonsHandler}>Toggle Persons0</button>
+          {/* <button
           style={style}
           // passes actual function to execute (arrow notation)
           onClick={() => this.togglePersonsHandler()}>Toggle Persons1</button>
         <button
           style={style}
           // if parameters are needed, passes actual function to execute (arrow notation)
-          // alternative to bind but React may render more often then needed(perfromance problem) */}
+          // alternative to bind but React may render more often then needed(perfromance problem)
           onClick={() => this.switchNameHandler('Rob-0')}>Switch Name0</button>
-        {/* <button
+           */}
+          {/* <button
           style={style}
           // best practice with React, bind this and parameters to reference of method
           // alternative to bind but React may render more often then needed(perfromance problem)
           onClick={this.switchNameHandler.bind(this, 'Rob-1')}>Switch Name1</button> */}
 
-        {/* { */}
-        {/* ternary check replaced with if in render, wrapped in {} because it is a simple js statement */}
-        {/* block level js expressions not allowed in jsx */}
-        {/* this.state.showPersons ? */}
-        {/* div below was added to persons var in render and replaced with {persons}*/}
-        {/* <div>
+          {/* { */}
+          {/* ternary check replaced with if in render, wrapped in {} because it is a simple js statement */}
+          {/* block level js expressions not allowed in jsx */}
+          {/* this.state.showPersons ? */}
+          {/* div below was added to persons var in render and replaced with {persons}*/}
+          {/* <div>
               <Person
                 name={this.state.persons[0].name}
                 age={this.state.persons[0].age} />
@@ -232,35 +258,36 @@ class App extends Component {
               <UserInput changed={this.userNameChangeHandler} userName={this.state.userName} style={userInputStyle} />
               <UserOutput userName={this.state.userName} />
             </div> */}
-        {/* : null */}
-        {persons}
-        {/* } */}
+          {/* : null */}
+          {persons}
+          {/* } */}
 
-        <InputText
-          changed={this.textChangedHandler}
-          style={textStyle}
-          textLength={this.state.text.length}
-          text={this.state.text}
-        />
+          <InputText
+            changed={this.textChangedHandler}
+            style={textStyle}
+            textLength={this.state.text.length}
+            text={this.state.text}
+          />
 
-        <ValidationComponent
-          textMessageLength={this.state.text.length}
-        />
+          <ValidationComponent
+            textMessageLength={this.state.text.length}
+          />
 
-        {characters}
+          {characters}
 
-        <UserInput
-          changed={this.userNameChangeHandler}
-          userName={this.state.userName}
-          style={userInputStyle}
-        />
-        <UserOutput
-          userName={this.state.userName}
-        />
+          <UserInput
+            changed={this.userNameChangeHandler}
+            userName={this.state.userName}
+            style={userInputStyle}
+          />
+          <UserOutput
+            userName={this.state.userName}
+          />
 
-      </div>
+        </div>
+      </StyleRoot>
     );
   }
 }
 
-export default App;
+export default Radium(App);
