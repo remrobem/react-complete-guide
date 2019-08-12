@@ -1,5 +1,5 @@
 import React from 'react';
-import './Person.css';
+import styles from './Person.module.css';
 // import Radium from 'radium';
 
 // this is a stateless component 
@@ -18,7 +18,8 @@ const person = (props) => {
 
     return (
         // <div className='Person' style={style}>
-        <div className='Person'>
+        // <div className='Person'>
+        <div className={styles.Person}>
             <p onClick={props.click}>I'm {props.name} and {props.age} years old</p>
             <p>{props.children}</p>
             <input type='text' onChange={props.changed} value={props.name} />
