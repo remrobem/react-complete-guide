@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Radium, { StyleRoot } from 'radium';
+// import Radium, { StyleRoot } from 'radium';
 import './App.css';
 import Person from './Person/Person';
 import UserInput from './UserInput/UserInput';
@@ -119,10 +119,10 @@ class App extends Component {
       padding: '8px',
       cursor: 'pointer',
       // use Radium to allow use of psudeoselectors
-      ':hover': {
-        backgroundColor: 'lightgreen',
-        color: 'black'
-      }
+      // ':hover': {
+      //   backgroundColor: 'lightgreen',
+      //   color: 'black'
+      // }
     };
 
     const userInputStyle = {
@@ -193,10 +193,10 @@ class App extends Component {
 
       );
       style.backgroundColor = 'red';
-      style[':hover'] = {
-        backgroundColor: 'lightred',
-        color: 'black'
-      }
+      // style[':hover'] = {
+      //   backgroundColor: 'lightred',
+      //   color: 'black'
+      // }
     }
     // dynamically assign classes
     let classes = [];
@@ -211,7 +211,7 @@ class App extends Component {
 
     return (
       // wrap entire app in StyleRoot when @media used via Radium
-      <StyleRoot>
+      // <StyleRoot>
         <div className="App">
           <h1>I am a React App</h1>
           <p className={classes.join(' ')}>This works!</p>
@@ -285,9 +285,10 @@ class App extends Component {
           />
 
         </div>
-      </StyleRoot>
+      // </StyleRoot>
     );
   }
 }
 
-export default Radium(App);
+// export default Radium(App);
+export default App;
